@@ -4,11 +4,12 @@ import React from 'react'
 class Shelf extends React.Component{
 	render(){
         console.log('shelf currently reading =',this.props.categoryBooks);
+        const categoryTitle = this.props.categoryTitle;
         const categoryBooks = this.props.categoryBooks;
 
   		return(
             <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
+            <h2 className="bookshelf-title">{categoryTitle}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
 
