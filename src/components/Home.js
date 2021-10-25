@@ -21,7 +21,7 @@ class Home extends React.Component{
                 <div className="list-books">
                   <Header />
                   <div className="list-books-content">
-                    <BooksDisplay />
+                    <BooksDisplay currentBooksOnShelves={this.props.currentBooksOnShelves}/>
                   </div>
                   <div className="open-search">
                    <SearchButton />

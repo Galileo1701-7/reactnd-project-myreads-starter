@@ -1,10 +1,14 @@
 import React from 'react';
+import Shelf from './Shelf';
 
 //this component contains the top header bar
 class BooksDisplay extends React.Component{
 	render(){
+        const currentBooksOnShelves = this.props.currentBooksOnShelves;
+        const booksCurrentlyReading = currentBooksOnShelves.filter(b => b.shelf === 'currentlyReading');
   		return(
             <div>
+            <Shelf categoryBooks={booksCurrentlyReading} categoryTitle={'Currently Reading'}/>
             <div className="bookshelf">
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
