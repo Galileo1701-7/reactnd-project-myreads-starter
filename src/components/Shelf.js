@@ -1,6 +1,7 @@
 import React from 'react'
 
-//this component contains the top header bar
+//this component contains the code for constructing each shelf
+
 class Shelf extends React.Component{
 	render(){
         console.log('shelf currently reading =',this.props.categoryBooks);
@@ -17,9 +18,9 @@ class Shelf extends React.Component{
                     <li key={b.id}>
                     <div className="book">
                         <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})`}}></div>
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.smallThumbnail})`}}></div>
                         <div className="book-shelf-changer">
-                            <select>
+                            <select value={b.shelf} onChange={e => this.props.changeShelf(b, e.target.value)}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -38,7 +39,7 @@ class Shelf extends React.Component{
             </div>
           </div>
         );
-  }
+    }
 }
 
 export default Shelf;
