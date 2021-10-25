@@ -5,8 +5,8 @@ import React from 'react'
 class Shelf extends React.Component{
 	render(){
         //console.log('shelf  =',this.props.categoryBooks);
-        const categoryTitle = this.props.categoryTitle;
-        const categoryBooks = this.props.categoryBooks;
+        const categoryTitle = this.props.categoryTitle; //blank if coming from SEARCH component
+        const categoryBooks = this.props.categoryBooks; //if from HOME this will be one shelf of books, from SEARCH will be all results
 
   		return(
             <div className="bookshelf">

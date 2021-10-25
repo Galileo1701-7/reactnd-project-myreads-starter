@@ -17,9 +17,20 @@ class BooksApp extends React.Component {
     );
     console.log('shelved book =', shelvedBook);
       if (shelvedBook) {
-        console.log('change shelf of ', book, ' to ', newShelf);    
+        console.log('change shelf of ', book, ' to ', newShelf);
+        //update book on backend
+        BooksAPI.update(book,newShelf);
+        //update book in state
+        this.setState(({ currentBooksOnShelves }) => ({
+          currentBooksOnShelves: currentBooksOnShelves.map(function (shelvedBook) {
+            if (shelvedBook.id === book.id) {
+              shelvedBook.shelf = newShelf;
+            } 
+            return shelvedBook;
+          })
+      }));    
       } else {
-        console.log('This book not on shelf');
+        console.log('This book is not on any shelf');
       }  
   } 
   
