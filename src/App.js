@@ -10,11 +10,20 @@ class BooksApp extends React.Component {
     currentBooksOnShelves: []
   }
 
+  //change the shelf of book (from dropdown on SHELF component)
   changeShelf = (book, newShelf) => {
-    console.log('change shelf of ', book, ' to ', newShelf);
-  }  
+    const shelvedBook = this.state.currentBooksOnShelves.find(
+      shelvedBook => shelvedBook.id === book.id      
+    );
+    console.log('shelved book =', shelvedBook);
+      if (shelvedBook) {
+        console.log('change shelf of ', book, ' to ', newShelf);    
+      } else {
+        console.log('This book not on shelf');
+      }  
+  } 
   
-  //on page load, this code gets the current book/shlef info from the backend
+  //on page load, this code gets the current book/shelf info from the backend
   componentDidMount(){
     BooksAPI.getAll().then(resp => this.setState({ currentBooksOnShelves: resp }))
     
