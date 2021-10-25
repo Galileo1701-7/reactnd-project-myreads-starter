@@ -4,6 +4,14 @@ import { Link } from 'react-router-dom';
 
 //the MAIN page is the home page for th app... it combines the header with the display of the book shelves
 class Search extends React.Component{
+    state = {
+        query: ''
+    }
+
+    updateQuery = (query ) => {
+        console.log('query =', query);
+        this.setState({query: query})
+    }
 
 	render() {
     	return(
@@ -22,7 +30,13 @@ class Search extends React.Component{
                         However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                         you don't find a specific author or title. Every search is limited by search terms.
                     */}
-                    <input type="text" placeholder="Search by title or author"/>
+                    
+                    <input 
+                        type="text" 
+                        value={this.state.query}
+                        onChange={(e) => this.updateQuery(e.target.value)}
+                        placeholder="Search by title or author"
+                    />
                 
                     </div>
                 </div>
