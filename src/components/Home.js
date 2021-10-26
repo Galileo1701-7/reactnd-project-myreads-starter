@@ -7,7 +7,7 @@ import BooksDisplay from './BooksDisplay';
 
 
 
-//the MAIN page is the home page for th app... it combines the header with the display of the book shelves
+//the HOME page for the app... it combines the header with the display of the book shelves
 class Home extends React.Component{
     
     
@@ -15,7 +15,7 @@ class Home extends React.Component{
 
 
 	render() {
-        console.log('home.js =',this.props.currentBooksOnShelves);
+        //console.log('home.js =',this.props.currentBooksOnShelves);
 
     	return(
                 <div className="list-books">

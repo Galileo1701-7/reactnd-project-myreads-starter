@@ -1,25 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import * as BooksAPI from '../BooksAPI';
+import Shelf from './Shelf';
 
 
-//the MAIN page is the home page for th app... it combines the header with the display of the book shelves
+//the SEARCH page is for adding books to your shelf
+//this page launches a search API and runs the result through a function on APPS to update the shelf information.
+//the result is handed to the SHELF component for display
+
 class Search extends React.Component{
     state = {
-        query: ''
+        query: '',
+        results:[]
     }
+    
 
     updateQuery = (query ) => {
         console.log('query =', query);
         this.setState({query: query})
+        this.queryBooks(query);
+    }
+
+    queryBooks = queryText => {
+        BooksAPI.search(queryText).then(resp => this.setState({ results: resp }))
+        
+        
     }
 
 	render() {
+        console.log('results =', this.state.results);
     	return(
           
             <div className="search-books">
                 <div className="search-books-bar">
                     <Link className='close search' to='/'>
-                        <button className="close-search" >Close</button>
+                        <button className="close-search" >Return Home</button>
                     </Link>
                     <div className="search-books-input-wrapper">
                     {/*
@@ -41,7 +56,7 @@ class Search extends React.Component{
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                   <Shelf categoryBooks={this.state.results} categoryTitle={''} changeShelf={this.props.changeShelf}/>
                 </div>
             </div>
        

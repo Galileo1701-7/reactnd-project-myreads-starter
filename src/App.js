@@ -30,7 +30,7 @@ class BooksApp extends React.Component {
           })
       }));    
       } else {
-        console.log('This book is not on any shelf');
+        console.log('This book is not currently on any shelf');
       }  
   } 
   
@@ -43,7 +43,7 @@ class BooksApp extends React.Component {
   
 
   render() {
-    console.log('app.js =',this.state.currentBooksOnShelves); 
+    //console.log('app.js =',this.state.currentBooksOnShelves); 
 
 
     return (
