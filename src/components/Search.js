@@ -10,25 +10,26 @@ import Shelf from './Shelf';
 
 class Search extends React.Component{
     state = {
-        query: '',
-        results:[]
+        query: ''
     }
     
 
     updateQuery = (query ) => {
         console.log('query =', query);
-        this.setState({query: query})
-        this.queryBooks(query);
+        this.setState({query: query});
+        if(query===''){this.props.emptySearchResults(); return;}else{
+        this.queryBooks(query);}
     }
 
     queryBooks = queryText => {
-        BooksAPI.search(queryText).then(resp => this.setState({ results: resp }))
-        
-        
+        BooksAPI.search(queryText).then(result =>{
+            console.log('result now =',result);
+            if(result){this.props.updateSearchResultsWithShelfStatus(result)}
+        })  
     }
 
 	render() {
-        console.log('results =', this.state.results);
+        
     	return(
           
             <div className="search-books">
@@ -56,7 +57,7 @@ class Search extends React.Component{
                     </div>
                 </div>
                 <div className="search-books-results">
-                   <Shelf categoryBooks={this.state.results} categoryTitle={''} changeShelf={this.props.changeShelf}/>
+                   <Shelf categoryBooks={this.props.searchResults} categoryTitle={''} changeShelf={this.props.changeShelf}/>
                 </div>
             </div>
        

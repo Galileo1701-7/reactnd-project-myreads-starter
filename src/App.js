@@ -8,7 +8,8 @@ import Search from './components/Search';
 
 class BooksApp extends React.Component {
   state = {
-    currentBooksOnShelves: []
+    currentBooksOnShelves: [],
+    searchResults: [], //books returned from the search page
   }
 
   //change the shelf of book (from dropdown on SHELF component)
@@ -46,6 +47,28 @@ class BooksApp extends React.Component {
       }  
   } 
   
+  //take results from SEARCH page and check for shelf status, update if exist, change to 'none' if not!
+  updateSearchResultsWithShelfStatus = (
+    searchResults = this.state.searchResults
+    ) => {
+      const searchResultsWithShelfStatus =searchResults.map(bookQueried => {
+        const bookInShelf = this.state.currentBooksOnShelves.find(
+          book => book.id === bookQueried.id        
+        );
+        bookQueried.shelf = bookInShelf ? bookInShelf.shelf : 'none';
+        return bookQueried;
+      });
+      this.setState({
+       searchResults: searchResultsWithShelfStatus
+      });
+     };
+
+  //this code clears the search results... used on search page when user backspaces to clear search text bar
+  emptySearchResults = () => {
+    this.setState({searchResults: [] });
+  };   
+
+
   //on page load, this code gets the current book/shelf info from the backend
   componentDidMount(){
     BooksAPI.getAll().then(resp => this.setState({ currentBooksOnShelves: resp }))
@@ -67,7 +90,12 @@ class BooksApp extends React.Component {
             changeShelf={this.changeShelf}/>
         )}/>
         <Route path='/search' render={({ history }) => (
-        	<Search changeShelf={this.changeShelf}/>        
+        	<Search 
+          changeShelf={this.changeShelf}
+          updateSearchResultsWithShelfStatus={this.updateSearchResultsWithShelfStatus}
+          searchResults={this.state.searchResults}
+          emptySearchResults={this.emptySearchResults}
+          />        
         )}/>
         </div>
       </BrowserRouter>
