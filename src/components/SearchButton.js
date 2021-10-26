@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-//this component combines LINK and BUTTON to provide the proper SEARCH button at the bottom of MAIN page
+//this component combines LINK and BUTTON to provide the proper SEARCH button at the bottom of HOME page
+//by using the link and ROUTE from APPS, the button opens the SEARCH page
 
 class SearchButton extends React.Component{
 

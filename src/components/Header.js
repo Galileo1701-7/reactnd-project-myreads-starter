@@ -1,6 +1,7 @@
 import React from 'react'
 
-//this component contains the top header bar
+//this component contains the top header bar (probably not needed as the code is only used once)
+  
 class Header extends React.Component{
 	render(){
   		return(

@@ -12,36 +12,34 @@ class Search extends React.Component{
     state = {
         query: ''
     }
-    
 
+    //used onChange of the search bar, place the search term in state, if blank it empties the search results
     updateQuery = (query) => {
-        console.log('query =', query);
+        //console.log('query =', query);
         this.setState({query: query});
         if(query===''){
             this.props.emptySearchResults(); return;
         }else{
             this.queryBooks(query);
         }
-    }
-    
+    } 
 
-
-
+    //takes the query text and makes API call (if not blank), catches any errors if present and blanks results
     queryBooks = (queryText) => {        
         BooksAPI.search(queryText).then(result =>{
-            console.log('result now =',result);
-            //if(this.state.query!==''){
+            //console.log('result now =',result);
+            if(this.state.query!==''){
             if(result){this.props.updateSearchResultsWithShelfStatus(result)}
-            //}
+            }
         })
         .catch((errors) => {
             //catch errors
-            console.log('caught error=',errors);
+            //console.log('caught error=',errors);
             this.props.emptySearchResults();
         });  
     }
 
-    // on mount, clear query and results... 
+    // on mount, clear query and search results... 
     componentDidMount() {
     this.setState({query: ''});    
     this.props.emptySearchResults();
@@ -49,7 +47,7 @@ class Search extends React.Component{
 
 	render() {
         //this code is a workaround to avoid showing queries in progress AFTER blanking out the search bar...
-        // I dont know how to you debounce yet! :) 
+        // I dont know how to do debounce yet! :) 
         const displayTheBooks = (this.state.query ==='') ? 
             <h2>Enter a search term above...</h2> 
             : <Shelf categoryBooks={this.props.searchResults} categoryTitle={''} changeShelf={this.props.changeShelf}
