@@ -14,21 +14,46 @@ class Search extends React.Component{
     }
     
 
-    updateQuery = (query ) => {
+    updateQuery = (query) => {
         console.log('query =', query);
         this.setState({query: query});
-        if(query===''){this.props.emptySearchResults(); return;}else{
-        this.queryBooks(query);}
+        if(query===''){
+            this.props.emptySearchResults(); return;
+        }else{
+            this.queryBooks(query);
+        }
     }
+    
 
-    queryBooks = queryText => {
+
+
+    queryBooks = (queryText) => {        
         BooksAPI.search(queryText).then(result =>{
             console.log('result now =',result);
+            //if(this.state.query!==''){
             if(result){this.props.updateSearchResultsWithShelfStatus(result)}
-        })  
+            //}
+        })
+        .catch((errors) => {
+            //catch errors
+            console.log('caught error=',errors);
+            this.props.emptySearchResults();
+        });  
     }
 
+    // on mount, clear query and results... 
+    componentDidMount() {
+    this.setState({query: ''});    
+    this.props.emptySearchResults();
+  }
+
 	render() {
+        //this code is a workaround to avoid showing queries in progress AFTER blanking out the search bar...
+        // I dont know how to you debounce yet! :) 
+        const displayTheBooks = (this.state.query ==='') ? 
+            <h2>Enter a search term above...</h2> 
+            : <Shelf categoryBooks={this.props.searchResults} categoryTitle={''} changeShelf={this.props.changeShelf}
+        />;
         
     	return(
           
@@ -57,7 +82,7 @@ class Search extends React.Component{
                     </div>
                 </div>
                 <div className="search-books-results">
-                   <Shelf categoryBooks={this.props.searchResults} categoryTitle={''} changeShelf={this.props.changeShelf}/>
+                {displayTheBooks}
                 </div>
             </div>
        

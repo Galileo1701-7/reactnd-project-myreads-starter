@@ -78,8 +78,7 @@ class BooksApp extends React.Component {
   
 
   render() {
-    //console.log('app.js =',this.state.currentBooksOnShelves); 
-
+   
 
     return (
       <BrowserRouter>
