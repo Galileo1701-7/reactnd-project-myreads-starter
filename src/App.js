@@ -57,6 +57,7 @@ class BooksApp extends React.Component {
         bookQueried.shelf = bookInShelf ? bookInShelf.shelf : 'none';
         return bookQueried;
       });
+
       this.setState({
        searchResults: searchResultsWithShelfStatus
       });
